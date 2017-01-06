@@ -214,7 +214,7 @@ func Cbreak(fd *os.File, enable bool, termios *Termios) error {
 	if enable == true {
 		termios.c_lflag ^= ICANON
 	} else {
-		termios.c_lflag |= ICANNON
+		termios.c_lflag |= ICANON
 	}
 
 	return TcSetAttr(fd, TCSETSF, termios)
