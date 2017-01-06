@@ -188,6 +188,38 @@ func CfMakeRaw(fd *os.File, termios *Termios) error {
 	return TcSetAttr(fd, TCSETSF, termios)
 }
 
+// NoEcho controls whether input is immediately re-echoed as output.
+// If enable is true, then echo will be disabled.
+func NoEcho(fd *os.File, enable bool, termios *Termios) error {
+	if termios == nil {
+		return &errorTermios{"termios must be initialized"}
+	}
+
+	if enable == true {
+		termios.c_lflag ^= ECHO
+	} else {
+		termios.c_lflag |= ECHO
+	}
+
+	return TcSetAttr(fd, TCSETSF, termios)
+}
+
+// Cbreak enables/disables `canonical` mode. If `canonical` mode is disabled,
+// the input will be returned to program immidiately.
+func Cbreak(fd *os.File, enable bool, termios *Termios) error {
+	if termios == nil {
+		return &errorTermios{"termios must be initialized"}
+	}
+
+	if enable == true {
+		termios.c_lflag ^= ICANON
+	} else {
+		termios.c_lflag |= ICANNON
+	}
+
+	return TcSetAttr(fd, TCSETSF, termios)
+}
+
 // CfSetOutputSpeed sets the output baud rate stored in the Termios structure
 // pointed to by Termios to speed, which must be one of the BAUD*
 // constants (see above)
