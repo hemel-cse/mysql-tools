@@ -14,7 +14,7 @@ type Terminal struct {
 	termInfo *terminfo.Terminfo
 }
 
-func InitScreen() (*Terminal, error) {
+func InitTerm() (*Terminal, error) {
 	inputFd := os.Stdin
 	outputFd := os.Stdout
 

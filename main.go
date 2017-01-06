@@ -1,12 +1,13 @@
-// These examples demonstrate more intricate uses of the flag package.
 package main
 
 import "flag"
 
 func main() {
+	/* parse mysql-cli flags (defined in flags.go) */
 	flag.Parse()
 
-	InitScreen()
+	/*  */
+	InitTerm()
 
 	/* TODO connect to database */
 	/* TODO parse configuration */
