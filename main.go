@@ -34,6 +34,7 @@ func main() {
 	/* main loop */
 	for {
 		line, err := l.Readline()
+
 		if err != nil {
 			break
 		}

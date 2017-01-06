@@ -1,6 +1,6 @@
-# mycli
+# mysql-cli
 
-`mycli` is mysql client with autocomplete and other features. Its main goal to make CLI interaction with [MySQL](https://www.mysql.com/) servers as human-friendly as possible. The `mycli` package provides simple `mycli` command that allows to connect to a `MySQL` server and execute [SQL](https://en.wikipedia.org/wiki/SQL) or `MySQL` internal commands.
+`mysql-cli` is mysql client with support of autocomplete and other features. Its main goal to make CLI interaction with [MySQL](https://www.mysql.com/) servers as human-friendly as possible. The `mysql-cli` package provides simple `mycli` command that allows to connect to a `MySQL` server and execute [SQL](https://en.wikipedia.org/wiki/SQL) or `MySQL` internal commands.
 
 ## Install
 
@@ -23,11 +23,11 @@ TODO
 
 Feel free to create issues or pull-requests if you have any problems.
 
-**Please read [CONTRIBUTING.md](https://github.com/0xAX/mycli/blob/master/CONTRIBUTING.md) before pushing any changes.**
+**Please read [CONTRIBUTING.md](https://github.com/0xAX/mysql-cli/blob/master/CONTRIBUTING.md) before pushing any changes.**
 
 ## LICENSE
 
-[![BSD-3-Clause licensed](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/0xAX/mycli/master/LICENSE.md)
+[![BSD-3-Clause licensed](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/0xAX/mysql-cli/master/LICENSE.md)
 
 ## Author
 
