@@ -1,6 +1,6 @@
 # mysql-cli
 
-`mysql-cli` is mysql client with support of autocomplete and other features. Its main goal to make CLI interaction with [MySQL](https://www.mysql.com/) servers as human-friendly as possible. The `mysql-cli` package provides simple `mycli` command that allows to connect to a `MySQL` server and execute [SQL](https://en.wikipedia.org/wiki/SQL) or `MySQL` internal commands.
+`mysql-cli` is mysql client with support of autocomplete and other features. Its main goal to make CLI interaction with [MySQL](https://www.mysql.com/) servers as human-friendly as possible. The `mysql-cli` package provides simple `mysql-cli` command that allows to connect to a `MySQL` server and execute [SQL](https://en.wikipedia.org/wiki/SQL) or `MySQL` internal commands.
 
 ## Install
 

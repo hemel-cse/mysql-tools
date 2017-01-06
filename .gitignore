@@ -28,4 +28,4 @@ _testmain.go
 
 # External packages folder
 vendor/
-mycli
+mysql-cli
