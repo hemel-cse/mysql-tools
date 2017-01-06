@@ -25,7 +25,7 @@ Feel free to create issues or pull-requests if you have any problems.
 
 ## LICENSE
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
+[![BSD-3-Clause licensed](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/0xAX/mycli/master/LICENSE.md)
 
 ## Author
 
