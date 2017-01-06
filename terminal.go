@@ -18,6 +18,9 @@ type Terminal struct {
 	TermInfo *terminfo.Terminfo
 }
 
+// InitTerm collects information about the terminal session where
+// mysql-cli is runned for now and returns pointer to instance of
+// the Terminal.
 func InitTerm() (*Terminal, error) {
 	inputFd := os.Stdin
 	outputFd := os.Stdout
