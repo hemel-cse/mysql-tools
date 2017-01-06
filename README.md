@@ -17,9 +17,15 @@ TODO
   * ~[DROP DATABASE](https://dev.mysql.com/doc/refman/5.7/en/drop-database.html)~
   * ...
 
-## Contribute
+## Contributions
 
-TODO
+Feel free to create issues or pull-requests if you have any problems.
+
+**Please read [CONTRIBUTING.md](https://github.com/0xAX/mycli/blob/master/CONTRIBUTING.md) before pushing any changes.**
+
+## LICENSE
+
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
 
 ## Author
 
