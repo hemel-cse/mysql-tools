@@ -7,11 +7,15 @@ import (
 	"github.com/0xAX/mysql-cli/termios"
 )
 
+// Terminal structure describes current terminal where
+// mysql-cli is runned.
 type Terminal struct {
 	inputFd  *os.File
 	outputFd *os.File
-	termCtrl *termios.Termios
-	termInfo *terminfo.Terminfo
+	// TermCtrl provides termios capabilities (see termios(3))
+	TermCtrl *termios.Termios
+	// TermInfo provides TermInfo capabilities (see terminfo(5))
+	TermInfo *terminfo.Terminfo
 }
 
 func InitTerm() (*Terminal, error) {
@@ -32,8 +36,8 @@ func InitTerm() (*Terminal, error) {
 	terminal := &Terminal{}
 	terminal.inputFd = inputFd
 	terminal.outputFd = outputFd
-	terminal.termCtrl = termCtrl
-	terminal.termInfo = termInfo
+	terminal.TermCtrl = termCtrl
+	terminal.TermInfo = termInfo
 
 	return terminal, nil
 }
