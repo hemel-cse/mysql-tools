@@ -10,7 +10,9 @@ TODO
 
 TODO
 
-## Supported commands
+## Features
+
+### Autocomplete for following commands
 
   * [USE](https://dev.mysql.com/doc/refman/5.7/en/use.html)
   * ~[CREATE DATABASE](https://dev.mysql.com/doc/refman/5.7/en/create-database.html)~
