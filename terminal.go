@@ -45,5 +45,11 @@ func InitTerm() (*Terminal, error) {
 	return terminal, nil
 }
 
-// 	termios.CfMakeRaw(terminal.outputFd, termCtrl)
-//	termios.Reset(terminal.outputFd, terminal.termCtrl)
+// IoLoop is main loop of mysql-cli process. It handles all
+// input/output stuff.
+func (t *Terminal) IoLoop() error {
+	termios.CfMakeRaw(t.outputFd, t.TermCtrl)
+	termios.Reset(t.outputFd, t.TermCtrl)
+
+	return nil
+}
