@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/0xAX/mysql-tools/terminfo"
@@ -106,11 +105,10 @@ mainloop:
 			if cmd.Position == 0 || cmd.Length == 0 {
 				break
 			}
-			backspace(cmd)
+			backspace(t, cmd)
 			break
 		case ENTER:
-			os.Stdout.Write([]byte("\n"))
-			os.Stdout.Write([]byte("\r"))
+			os.Stdout.Write([]byte("\n\r"))
 			cmd.Position += 1
 			cmd.Length += 1
 			break
@@ -147,10 +145,12 @@ mainloop:
 	return nil
 }
 
-func backspace(cmd *SqlCommandBuffer) {
-	os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
+func backspace(t *Terminal, cmd *SqlCommandBuffer) {
+	capability, _ := t.TermInfo.ApplyCapability("cub1")
+	os.Stdout.Write([]byte(capability))
 	os.Stdout.Write([]byte(" "))
-	os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
+	capability, _ = t.TermInfo.ApplyCapability("cub1")
+	os.Stdout.Write([]byte(capability))
 	cmd.Position -= 1
 	cmd.Length -= 1
 }
