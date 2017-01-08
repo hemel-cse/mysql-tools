@@ -1,10 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
-	"github.com/0xAX/mysql-cli/terminfo"
-	"github.com/0xAX/mysql-cli/termios"
+	"github.com/0xAX/mysql-tools/terminfo"
+	"github.com/0xAX/mysql-tools/termios"
 )
 
 const (
@@ -70,15 +71,16 @@ func InitTerm() (*Terminal, error) {
 // input/output stuff.
 func (t *Terminal) IoLoop() error {
 	var c []byte = make([]byte, 1)
+	cmd := &SqlCommandBuffer{}
 
 	// enable `noecho` as we will print symbols by ourself
-	err := termios.NoEcho(t.inputFd, true, t.TermCtrl)
+	err := termios.NoEcho(t.outputFd, true, t.TermCtrl)
 	if err != nil {
 		return err
 	}
 
 	// we need in `cbreak` here to read symbol by symbol
-	err = termios.Cbreak(t.inputFd, true, t.TermCtrl)
+	err = termios.Cbreak(t.outputFd, true, t.TermCtrl)
 	if err != nil {
 		return err
 	}
@@ -89,14 +91,28 @@ func (t *Terminal) IoLoop() error {
 	//
 	// start main reading loop
 	//
+mainloop:
 	for {
 		os.Stdin.Read(c)
 
-		if c[0] == CTRL_C {
+		switch c[0] {
+		case CTRL_C:
+			break mainloop
+		case BACKSPACE:
+			if cmd.Position == 0 || cmd.Length == 0 {
+				break
+			}
+			os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
+			os.Stdout.Write([]byte(" "))
+			os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
+			cmd.Position -= 1
+			cmd.Length -= 1
 			break
+		default:
+			os.Stdout.Write(c)
+			cmd.Length += 1
+			cmd.Position += 1
 		}
-
-		os.Stdout.Write(c)
 	}
 
 	termios.Reset(t.outputFd, t.TermCtrl)
