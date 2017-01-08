@@ -1,7 +1,7 @@
 Contributing
 ================================================================================
 
-If you want to contribute to [mysql-cli](https://github.com/0xAX/mysql-cli), please follow these simple rules:
+If you want to contribute to [mysql-tools](https://github.com/0xAX/mysql-tools), please follow these simple rules:
 
 1. Press the fork button:
 
@@ -10,7 +10,7 @@ If you want to contribute to [mysql-cli](https://github.com/0xAX/mysql-cli), ple
 2. Clone the repository from your account with:
 
     ```
-    git clone git@github.com:your_github_username/mysql-cli.git
+    git clone git@github.com:your_github_username/mysql-tools.git
     ```
 
 3. Create a new branch with:
