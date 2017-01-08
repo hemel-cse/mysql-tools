@@ -8,6 +8,10 @@ import (
 )
 
 const (
+	ALLOC_BUFFER_STRINGS = 10
+)
+
+const (
 	CTRL_A    = 1   // Ctrl+a
 	CTRL_B    = 2   // Ctrl-b
 	CTRL_C    = 3   // Ctrl-c
@@ -74,7 +78,8 @@ func InitTerm() (*Terminal, error) {
 // input/output stuff.
 func (t *Terminal) IoLoop() error {
 	var c []byte = make([]byte, 1)
-	cmd := &SqlCommandBuffer{}
+	var idx int
+	cmd := &SqlCommandBuffer{DisplayBuffer: make([]string, 1)}
 
 	// enable `noecho` as we will print symbols by ourself
 	err := termios.NoEcho(t.outputFd, true, t.TermCtrl)
@@ -108,6 +113,8 @@ mainloop:
 			backspace(t, cmd)
 			break
 		case ENTER:
+			idx += 1
+			cmd.DisplayBuffer = append(cmd.DisplayBuffer, "")
 			os.Stdout.Write([]byte("\n\r"))
 			cmd.Position += 1
 			cmd.Length += 1
@@ -132,7 +139,11 @@ mainloop:
 				}
 			}
 			break
+		case TAB:
+			/* TODO autocomplete */
+			break
 		default:
+			cmd.DisplayBuffer[idx] += string(c)
 			os.Stdout.Write(c)
 			cmd.Length += 1
 			cmd.Position += 1

@@ -7,4 +7,7 @@ type SqlCommandBuffer struct {
 	Length uint64
 	// Current position in sql command
 	Position uint64
+	// Current buffer with colors and etc. This one will not be
+	// sent to MySql server. It is only for displaying.
+	DisplayBuffer []string
 }
