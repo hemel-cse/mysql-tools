@@ -27,6 +27,10 @@ const (
 	CTRL_W    = 23  // Ctrl+w
 	ESC       = 27  // Escape
 	BACKSPACE = 127 // Backspace
+	UP        = 'A' // Up
+	DOWN      = 'B' // Down
+	RIGHT     = 'C' // Right
+	LEFT      = 'D' // Left
 )
 
 // Terminal structure describes current terminal where
@@ -102,20 +106,63 @@ mainloop:
 			if cmd.Position == 0 || cmd.Length == 0 {
 				break
 			}
-			os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
-			os.Stdout.Write([]byte(" "))
-			os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
-			cmd.Position -= 1
-			cmd.Length -= 1
+			backspace(cmd)
+			break
+		case ESC:
+			os.Stdin.Read(c)
+			if c[0] == '[' {
+				os.Stdin.Read(c)
+				switch c[0] {
+				case UP:
+					/* TODO history */
+					break
+				case DOWN:
+					/* TODO history */
+					break
+				case RIGHT:
+					moveRight(t, cmd)
+					break
+				case LEFT:
+					moveLeft(t, cmd)
+					break
+				}
+			}
 			break
 		default:
 			os.Stdout.Write(c)
 			cmd.Length += 1
 			cmd.Position += 1
+			break
 		}
 	}
 
 	termios.Reset(t.outputFd, t.TermCtrl)
 
 	return nil
+}
+
+func backspace(cmd *SqlCommandBuffer) {
+	os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
+	os.Stdout.Write([]byte(" "))
+	os.Stdout.Write([]byte(fmt.Sprintf("\r\x1b[%dC", cmd.Position-1)))
+	cmd.Position -= 1
+	cmd.Length -= 1
+}
+
+func moveRight(t *Terminal, cmd *SqlCommandBuffer) {
+	if cmd.Position == cmd.Length {
+		return
+	}
+	cmd.Position += 1
+	capability, _ := t.TermInfo.ApplyCapability("cuf1")
+	os.Stdout.Write([]byte(capability))
+}
+
+func moveLeft(t *Terminal, cmd *SqlCommandBuffer) {
+	if cmd.Position == 0 {
+		return
+	}
+	cmd.Position -= 1
+	capability, _ := t.TermInfo.ApplyCapability("cub1")
+	os.Stdout.Write([]byte(capability))
 }
