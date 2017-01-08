@@ -161,6 +161,13 @@ func backspace(t *Terminal, cmd *SqlCommandBuffer) {
 	os.Stdout.Write([]byte(" "))
 	capability, _ = t.TermInfo.ApplyCapability("cub1")
 	os.Stdout.Write([]byte(capability))
+
+	// Special case when we delete something in the middle
+	// of input.
+	if cmd.Position == cmd.Length {
+		/* TODO */
+	}
+
 	cmd.Position -= 1
 	cmd.Length -= 1
 }
