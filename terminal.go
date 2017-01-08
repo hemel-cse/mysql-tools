@@ -78,7 +78,6 @@ func InitTerm() (*Terminal, error) {
 // input/output stuff.
 func (t *Terminal) IoLoop() error {
 	var c []byte = make([]byte, 1)
-	var idx int
 	cmd := &SqlCommandBuffer{DisplayBuffer: make([]string, 1)}
 
 	// enable `noecho` as we will print symbols by ourself
@@ -113,7 +112,7 @@ mainloop:
 			backspace(t, cmd)
 			break
 		case ENTER:
-			idx += 1
+			cmd.DisplayBufferIndex += 1
 			cmd.DisplayBuffer = append(cmd.DisplayBuffer, "")
 			os.Stdout.Write([]byte("\n\r"))
 			cmd.Position += 1
@@ -143,7 +142,7 @@ mainloop:
 			/* TODO autocomplete */
 			break
 		default:
-			cmd.DisplayBuffer[idx] += string(c)
+			cmd.DisplayBuffer[cmd.DisplayBufferIndex] += string(c)
 			os.Stdout.Write(c)
 			cmd.Length += 1
 			cmd.Position += 1
