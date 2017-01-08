@@ -108,6 +108,12 @@ mainloop:
 			}
 			backspace(cmd)
 			break
+		case ENTER:
+			os.Stdout.Write([]byte("\n"))
+			os.Stdout.Write([]byte("\r"))
+			cmd.Position += 1
+			cmd.Length += 1
+			break
 		case ESC:
 			os.Stdin.Read(c)
 			if c[0] == '[' {
